@@ -1,0 +1,32 @@
+---
+driver_config:
+  joyent_username: <%= ENV['SDC_ACCOUNT'] %>
+  joyent_keyfile: <%= ENV['SDC_IDENTITY'] %>
+  joyent_keyname: <%= ENV['SDC_KEY_ID'] %>
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: true
+
+platforms:
+- name: smartos-base64-1331
+  driver_plugin: joyent
+  driver_config:
+    joyent_url: "https://us-east-1.api.joyentcloud.com/"
+    joyent_image_id: c353c568-69ad-11e3-a248-db288786ea63
+    joyent_flavor_id: g3-standard-4-smartos
+    username: root
+    ssh_key: <%= ENV['SDC_IDENTITY'] %>
+  provisioner:
+    name: chef_zero
+    sudo: false
+    chef_omnibus_url: https://raw.github.com/bixu/chef-bootstrap/master/install.sh
+    # chef_omnibus_url: https://raw.github.com/test-kitchen/kitchen-joyent/master/scripts/install-smartos.sh
+
+suites:
+- name: default
+  run_list:
+    - recipe[nginx::default]
+- name: package
+  run_list:
+    - recipe[nginx::package]
