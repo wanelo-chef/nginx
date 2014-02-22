@@ -36,3 +36,6 @@ suites:
 - name: site_disable
   run_list:
     - recipe[test_nginx_site::disable]
+- name: update_from_package_to_source
+  run_list:
+    - recipe[test_nginx_site::update_from_package_to_source]
