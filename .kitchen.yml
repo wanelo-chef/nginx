@@ -29,8 +29,7 @@ suites:
     - recipe[nginx::default]
 - name: package
   run_list:
-    - recipe[nginx::package]
-- name: nginx_site_enable
+    - recipe[test_nginx_site::package]
   run_list:
     - recipe[test_nginx_site::enable]
 - name: nginx_site_disable
