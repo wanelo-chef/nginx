@@ -8,6 +8,8 @@ resource_control_project 'nginx' do
     }
 end
 
+service 'nginx'
+
 smf 'pkgsrc/nginx' do
   action :delete
 end
@@ -26,4 +28,5 @@ smf 'nginx' do
   property_groups 'config' => {
       'nginx_conf' => "#{node['nginx']['dir']}/nginx.conf"
   }
+  notifies :restart, 'service[nginx]'
 end
