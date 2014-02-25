@@ -6,11 +6,13 @@ nginx_version = node['nginx']['source']['version']
 
 remote_file "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz" do
   source node['nginx']['source']['url']
+  not_if "[[ $(nginx -v 2>&1) == *nginx/#{nginx_version}* ]]"
 end
 
 execute "untar nginx source" do
   command "tar xzf #{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz"
   cwd Chef::Config[:file_cache_path]
+  not_if "[[ $(nginx -v 2>&1) == *nginx/#{nginx_version}* ]]"
 end
 
 nginx_user = node['nginx']['user']
@@ -42,6 +44,7 @@ execute "configure nginx" do
       #{module_flags}
   }
   cwd "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}"
+  not_if "[[ $(nginx -v 2>&1) == *nginx/#{nginx_version}* ]]"
 end
 
 execute "make nginx" do
@@ -50,6 +53,7 @@ execute "make nginx" do
     make install
   }
   cwd "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}"
+  not_if "[[ $(nginx -v 2>&1) == *nginx/#{nginx_version}* ]]"
   environment 'LDFLAGS' => '-L/opt/local/lib -Wl,-R/opt/local/lib'
 end
 
