@@ -1,12 +1,14 @@
 
 include_recipe 'build-essential::default'
 
-remote_file "#{Chef::Config[:file_cache_path]}/nginx-1.4.5.tar.gz" do
-  source "http://nginx.org/download/nginx-1.4.5.tar.gz"
+nginx_version = node['nginx']['source']['version']
+
+remote_file "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz" do
+  source node['nginx']['source']['url']
 end
 
 execute "untar nginx source" do
-  command "tar xzf #{Chef::Config[:file_cache_path]}/nginx-1.4.5.tar.gz"
+  command "tar xzf #{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz"
   cwd Chef::Config[:file_cache_path]
 end
 
@@ -38,7 +40,7 @@ execute "configure nginx" do
       --http-fastcgi-temp-path=/var/db/nginx/fstcgi_temp \
       #{module_flags}
   }
-  cwd "#{Chef::Config[:file_cache_path]}/nginx-1.4.5"
+  cwd "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}"
 end
 
 execute "make nginx" do
@@ -46,7 +48,7 @@ execute "make nginx" do
     make
     make install
   }
-  cwd "#{Chef::Config[:file_cache_path]}/nginx-1.4.5"
+  cwd "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}"
   environment 'LDFLAGS' => '-L/opt/local/lib -Wl,-R/opt/local/lib'
 end
 
