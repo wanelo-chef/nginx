@@ -1,12 +1,12 @@
 default['nginx']['dir'] = "#{node['paths']['etc_dir']}/nginx"
 default['nginx']['log_dir'] = "/var/log/nginx"
+
 default['nginx']['user'] = "www"
+default['nginx']['group'] = node['nginx']['user']
 
 default['nginx']['worker_processes'] = node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
 default['nginx']['binary'] = "#{node['paths']['sbin_dir']}/nginx"
 default['nginx']['sbin'] = node['paths']['sbin_dir']
-
-default['nginx']['group'] = node['nginx']['user']
 
 default['nginx']['pid'] = "/var/run/nginx.pid"
 

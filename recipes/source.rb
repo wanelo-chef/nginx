@@ -1,5 +1,6 @@
 
 include_recipe 'build-essential::default'
+include_recipe 'nginx::user'
 
 nginx_version = node['nginx']['source']['version']
 
