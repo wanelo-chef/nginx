@@ -30,6 +30,9 @@ suites:
 - name: package
   run_list:
     - recipe[test_nginx_site::package]
+- name: source
+  run_list:
+    - recipe[test_nginx_site::source]
 - name: site_enable
   run_list:
     - recipe[test_nginx_site::enable]
