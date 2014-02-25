@@ -8,3 +8,5 @@ version          '0.1.0'
 
 depends 'build-essential'
 depends 'paths', '~> 0.3'
+depends 'resource-control', '~> 0.1'
+depends 'smf', '~> 2.0.3'
