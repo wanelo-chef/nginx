@@ -27,3 +27,11 @@ template "nginx.conf" do
   group "root"
   mode 00644
 end
+
+cookbook_file "mime.types" do
+  path "#{node['nginx']['dir']}/mime.types"
+  source "mime.types"
+  owner "root"
+  group "root"
+  mode 00644
+end
