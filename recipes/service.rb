@@ -12,9 +12,10 @@ service 'nginx'
 
 smf 'pkgsrc/nginx' do
   action :delete
+  only_if { node['nginx']['service']['name'] != 'pkgsrc/nginx' }
 end
 
-smf 'nginx' do
+smf node['nginx']['service']['name'] do
   project 'nginx'
   start_command "#{node['nginx']['sbin']}/nginx -c %{config/nginx_conf}"
   start_timeout 60
@@ -29,4 +30,8 @@ smf 'nginx' do
       'nginx_conf' => "#{node['nginx']['dir']}/nginx.conf"
   }
   notifies :enable, 'service[nginx]'
+
+  only_if {
+    node['nginx']['service']['name'] != 'pkgsrc/nginx'
+  }
 end
