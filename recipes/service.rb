@@ -2,10 +2,10 @@ include_recipe 'resource-control::default'
 include_recipe 'smf::default'
 
 resource_control_project 'nginx' do
-  comment "nginx project"
-  process_limits "max-file-descriptor" => {
+  comment 'nginx project'
+  process_limits 'max-file-descriptor' => {
       'value' => 32768, 'deny' => true, 'level' => 'basic'
-    }
+  }
 end
 
 service 'nginx'
