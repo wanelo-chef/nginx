@@ -4,6 +4,10 @@ include_recipe 'nginx::user'
 
 nginx_version = node['nginx']['source']['version']
 
+node['nginx']['source']['dependencies'].each do |pkg|
+  package pkg
+end
+
 remote_file "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz" do
   source node['nginx']['source']['url']
   not_if "[[ $(nginx -v 2>&1) == *nginx/#{nginx_version}* ]]"
