@@ -28,5 +28,5 @@ smf 'nginx' do
   property_groups 'config' => {
       'nginx_conf' => "#{node['nginx']['dir']}/nginx.conf"
   }
-  notifies :restart, 'service[nginx]'
+  notifies :enable, 'service[nginx]'
 end
