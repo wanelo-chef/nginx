@@ -24,8 +24,9 @@ nginx_group = node['nginx']['group']
 
 modules = %w(
   mail_ssl
-  http_ssl
+  http_gzip_static
   http_realip
+  http_ssl
   http_stub_status
 )
 
