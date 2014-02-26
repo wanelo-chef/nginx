@@ -1,4 +1,4 @@
-
+include_recipe 'paths::default'
 include_recipe 'build-essential::default'
 include_recipe 'nginx::user'
 

@@ -1,3 +1,4 @@
+include_recipe 'paths::default'
 include_recipe 'resource-control::default'
 include_recipe 'smf::default'
 

@@ -1,3 +1,4 @@
+include_recipe 'paths::default'
 
 directory node['nginx']['dir'] do
   owner 'root'
