@@ -21,7 +21,9 @@ platforms:
     name: chef_zero
     sudo: false
     chef_omnibus_url: https://raw.github.com/wanelo-chef/chef-bootstrap/master/latest.sh
-    # chef_omnibus_url: https://raw.github.com/test-kitchen/kitchen-joyent/master/scripts/install-smartos.sh
+- name: ubuntu-12.04
+  driver:
+    name: vagrant
 
 suites:
 - name: default
