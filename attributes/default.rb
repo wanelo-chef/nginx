@@ -7,6 +7,7 @@ default['nginx']['group'] = node['nginx']['user']
 default['nginx']['worker_processes'] = node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
 default['nginx']['binary'] = "#{node['paths']['sbin_dir']}/nginx"
 default['nginx']['sbin'] = node['paths']['sbin_dir']
+default['nginx']['lock_dir'] = '/var/db/nginx'
 
 default['nginx']['pid'] = '/var/run/nginx.pid'
 

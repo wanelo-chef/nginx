@@ -13,6 +13,12 @@ directory node['nginx']['log_dir'] do
   recursive true
 end
 
+directory node['nginx']['lock_dir'] do
+  owner node['nginx']['user']
+  mode 0755
+  recursive true
+end
+
 %w(sites-available sites-enabled conf.d).each do |dir|
   directory File.join(node['nginx']['dir'], dir) do
     owner "root"

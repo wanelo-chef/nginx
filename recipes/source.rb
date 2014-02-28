@@ -45,7 +45,7 @@ execute "configure nginx" do
       --sbin-path=#{prefix}/nginx \
       --conf-path=#{node['nginx']['dir']}/nginx.conf \
       --pid-path=#{node['nginx']['pid']} \
-      --lock-path=/var/db/nginx/nginx.lock \
+      --lock-path=#{node['nginx']['lock_dir']}/nginx.lock \
       --error-log-path=#{node['nginx']['log_dir']}/error.log \
       --http-log-path=#{node['nginx']['log_dir']}/access.log \
       --http-client-body-temp-path=/var/db/nginx/client_body_temp \
