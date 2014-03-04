@@ -13,13 +13,13 @@ end
 
 remote_file "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz" do
   source node['nginx']['source']['url']
-  not_if { checks.already_compiled? }
+  not_if { checks.already_installed? || checks.already_compiled? }
 end
 
 execute "untar nginx source" do
   command "tar xzf #{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}.tar.gz"
   cwd Chef::Config[:file_cache_path]
-  not_if { checks.already_compiled? }
+  not_if { checks.already_installed? || checks.already_compiled? }
 end
 
 nginx_user = node['nginx']['user']
@@ -53,7 +53,7 @@ execute "configure nginx" do
       #{module_flags}
   }
   cwd "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}"
-  not_if { checks.already_compiled? }
+  not_if { checks.already_installed? || checks.already_compiled? }
 end
 
 execute "make nginx" do
@@ -62,7 +62,7 @@ execute "make nginx" do
     make install
   }
   cwd "#{Chef::Config[:file_cache_path]}/nginx-#{nginx_version}"
-  not_if { checks.already_compiled? }
+  not_if { checks.already_installed? || checks.already_compiled? }
   environment 'LDFLAGS' => '-L/opt/local/lib -Wl,-R/opt/local/lib'
 end
 

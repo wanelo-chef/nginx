@@ -14,11 +14,19 @@ module Nginx
       shell_out("[[ $(#{prefix}/nginx -v 2>&1) == *nginx/#{nginx_version}* ]]").status == 0
     end
 
+    def already_installed?
+      shell_out("[[ $(#{symlink} -v 2>&1) == *nginx/#{nginx_version}* ]]").status == 0
+    end
+
+    def symlink_exists?
+      File.exists?(symlink)
+    end
+
     def skip_symlink?
       if node['nginx']['source']['skip_symlinking']
         true
       else
-        shell_out("test -e #{symlink} && [[ $(#{symlink} -v 2>&1) == *nginx/#{nginx_version}* ]]").status == 0
+        symlink_exists? && already_installed?
       end
     end
 
