@@ -9,8 +9,6 @@ resource_control_project 'nginx' do
   }
 end
 
-service 'nginx'
-
 smf 'pkgsrc/nginx' do
   action :delete
   only_if { node['nginx']['service']['name'] != 'pkgsrc/nginx' }
@@ -36,3 +34,5 @@ smf node['nginx']['service']['name'] do
     node['nginx']['service']['name'] != 'pkgsrc/nginx'
   }
 end
+
+service 'nginx'
