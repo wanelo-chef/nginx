@@ -35,4 +35,6 @@ smf node['nginx']['service']['name'] do
   }
 end
 
-service 'nginx'
+service 'nginx' do
+  supports restart: true, status: true, reload: true, enable: true, disable: true
+end
