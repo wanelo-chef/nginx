@@ -75,7 +75,9 @@ execute 'verify nginx binary against current configuration' do
   notifies :create, 'link[nginx]', :immediately
 end
 
-service node['nginx']['service']['name']
+service node['nginx']['service']['name'] do
+  supports restart: true, status: true, reload: true, enable: true, disable: true
+end
 
 link "nginx" do
   target_file node['nginx']['source']['symlink']
